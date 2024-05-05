@@ -16,10 +16,13 @@ import com.kihong.learn.java.phoneshop.service.Spec.BrandFilter;
 import com.kihong.learn.java.phoneshop.service.Spec.BrandSpec;
 import com.kihong.learn.java.phoneshop.service.util.PageUtil;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
 	@Autowired
-	private BrandRepository brandRepository;
+	private final BrandRepository brandRepository;
 
 	@Override
 	public Brand Create(Brand brand) {
