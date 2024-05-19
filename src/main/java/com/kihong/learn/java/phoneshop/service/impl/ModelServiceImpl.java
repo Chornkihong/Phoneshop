@@ -1,5 +1,7 @@
 package com.kihong.learn.java.phoneshop.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.kihong.learn.java.phoneshop.entity.Model;
@@ -18,6 +20,11 @@ public class ModelServiceImpl implements ModelService {
 	public Model save(Model model) {
 		
 		return modelRepository.save(model);
+	}
+
+	@Override
+	public List<Model> getByBrand(Integer brandId) {
+		return modelRepository.findByBrandId(brandId);
 	}
 
 }
