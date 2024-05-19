@@ -2,9 +2,7 @@ package com.kihong.learn.java.phoneshop.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,16 +15,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kihong.learn.java.phoneshop.dto.BrandDTO;
+import com.kihong.learn.java.phoneshop.dto.ModelDTO;
 import com.kihong.learn.java.phoneshop.dto.PageDTO;
 import com.kihong.learn.java.phoneshop.entity.Brand;
+import com.kihong.learn.java.phoneshop.entity.Model;
 import com.kihong.learn.java.phoneshop.mapper.BrandMapper;
+import com.kihong.learn.java.phoneshop.mapper.ModelMapper;
 import com.kihong.learn.java.phoneshop.service.BrandService;
+import com.kihong.learn.java.phoneshop.service.ModelService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("brands")
+@RequiredArgsConstructor
 public class BrandController {
-	@Autowired
-	private BrandService brandService;
+
+	private final BrandService brandService;
+	private final ModelService modelService;
+	private final ModelMapper modelMapper;
 	
 	@RequestMapping(method = RequestMethod.POST)
    public ResponseEntity<?> create (@RequestBody BrandDTO brandDTO){
@@ -45,6 +52,16 @@ public class BrandController {
 		Brand brand = brandService.getById(brandId);
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(brand));
 	}
+	//getmodelby brand id
+	@GetMapping("{id}/models")
+	public ResponseEntity<?> getmodelsBybrandId(@PathVariable("id") Integer brandId){
+		List<Model> brands = modelService.getByBrand(brandId);
+		List<ModelDTO> list = brands.stream()
+			.map(modelMapper::toModelDTO)
+			.toList();
+		return ResponseEntity.ok(list);
+	}
+	
     @PutMapping("{id}")
 	public ResponseEntity<?> update (@PathVariable("id") Integer brandId,@RequestBody BrandDTO brandDTO){
 		Brand brand =BrandMapper.INSTANCE.toBrand(brandDTO);
