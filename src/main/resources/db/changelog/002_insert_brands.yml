@@ -1,0 +1,20 @@
+databaseChangeLog:
+- changeSet:
+      id:  002_insert_brands
+      author:  kihong.chorn@gmail.com
+      changes:
+       - loadData:
+            tableName:  brands
+            columns:
+              - column:
+                  name:  brand_id
+                  type:  numberic
+              - column:
+                  name:  brand_name
+                  type:  String 
+            file: db/data/002_brands.csv
+      
+                  
+                  
+                  
+                                                    
