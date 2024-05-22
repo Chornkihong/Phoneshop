@@ -57,6 +57,11 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.0.2</version>
 		</dependency>
+		<!-- liquibase -->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -98,7 +103,19 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
-
+			<!-- plugins for generate log liquibase-->
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<configuration>
+					<driver>org.postgresql.Driver</driver>
+					<url>jdbc:postgresql://localhost:5432/phoneshop</url>
+					<username>phoneshop</username>
+					<password>phoneshop123</password>
+					<outputChangeLogFile>
+						src/main/resources/liquibase-outputChangeLog.yml</outputChangeLogFile>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
