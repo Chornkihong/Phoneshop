@@ -7,5 +7,6 @@ import com.kihong.learn.java.phoneshop.entity.Model;
 public interface ModelService {
   
 	 Model save(Model model);
-	 List<Model> getByBrand(Integer brandId);
+	 List<Model> getByBrand(Long brandId);
+	 Model getByid(Long id);
 }
